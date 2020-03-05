@@ -1,0 +1,73 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform'
+    id 'kotlinx-serialization'
+}
+
+group = "com.aprearo.jsonplaceholder"
+version = "0.0.1"
+
+kotlin {
+    targets {
+        jvm("android")
+
+        def onPhone = System.getenv('SDK_NAME')?.startsWith("iphoneos")
+        if (onPhone) {
+            iosArm64("ios")
+        } else {
+            iosX64("ios")
+        }
+
+        targets.all { target ->
+            compilations.all { compilation ->
+                tasks[compileKotlinTaskName].kotlinOptions {
+                    // TODO: Remove use-experimental once coroutines are finally stable
+                    freeCompilerArgs = ['-Xuse-experimental=kotlin.Experimental']
+                }
+            }
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation deps.kotlin.stdlib_common
+                implementation deps.coroutines.common
+                implementation deps.serialization.common
+                implementation deps.ktor.commonCore
+                implementation deps.ktor.commonJson
+                implementation deps.ktor.commonSerialization
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation deps.kotlin.test_common
+                implementation deps.kotlin.test_annotations_common
+                implementation deps.kotlin.test_junit
+                implementation deps.coroutines.test
+                implementation deps.ktor.commonMock
+                implementation deps.ktor.jvmMock
+                implementation deps.mockk.common
+                implementation deps.mockk.native
+            }
+        }
+        androidMain {
+            dependencies {
+                implementation deps.kotlin.stdlib
+                implementation deps.ktor.commonSerialization
+                implementation deps.ktor.jvmCore
+                implementation deps.ktor.jvmJson
+                implementation deps.ktor.jvmSerialization
+            }
+        }
+        iosMain {
+            dependencies {
+                implementation deps.coroutines.native
+                implementation deps.serialization.native
+                implementation deps.ktor.ios
+                implementation deps.ktor.iosCore
+                implementation deps.ktor.iosJson
+                implementation deps.ktor.iosSerialization
+            }
+        }
+    }
+}
