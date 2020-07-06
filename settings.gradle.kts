@@ -1,5 +1,5 @@
 rootProject.name = "JSONPlaceholderKotlin"
 
-include(":androidApp")
+include(":app")
 include(":shared")
 enableFeaturePreview("GRADLE_METADATA")

@@ -6,7 +6,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.coroutines.test.runBlockingTest
 
-@UseExperimental(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class ClientTests {
     private val apiMockEngine = ApiMockEngine()
     private val clientMock = Api(apiMockEngine.get())
