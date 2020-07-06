@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("kotlinx-serialization")
     id("com.android.library")
+    id("org.jetbrains.kotlin.native.cocoapods")
 }
 
 android {
@@ -78,5 +79,10 @@ kotlin {
         implementation(Deps.Ktor.iosLogging)
         implementation(Deps.Coroutines.native)
         implementation(Deps.Ktor.iosSerialization)
+    }
+
+    cocoapods {
+        summary = "Kotlin wrapper for JSONPlaceholder."
+        homepage = "https://github.com/andrea-prearo/JSONPlaceholderKotlin"
     }
 }

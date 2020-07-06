@@ -1,11 +1,11 @@
 buildscript {
     repositories {
         google()
-        mavenCentral()
         jcenter()
     }
     dependencies {
         classpath(Deps.android_gradle_plugin)
+        classpath(Deps.kotlin_gradle_plugin)
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
 
         classpath(kotlin("gradle-plugin", Versions.kotlin))
@@ -17,7 +17,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()
         jcenter()
         maven(url = "https://kotlin.bintray.com/kotlinx")
     }
